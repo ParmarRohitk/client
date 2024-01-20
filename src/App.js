@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BrowserRouter as Router, Link, useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const apiUrl = "http://localhost:3000/api";
 
@@ -10,17 +12,6 @@ const App = () => {
   return (
     <Router>
       <div>
-        {/*  <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/add">Add Data</Link>
-            </li>
-          </ul>
-        </nav> */}
-
         <Link path="/add">
           <AddData />
         </Link>
@@ -30,6 +21,7 @@ const App = () => {
         <Link path="/" exact>
           <Home />
         </Link>
+        <ToastContainer />
       </div>
     </Router>
   );
@@ -98,10 +90,12 @@ const AddData = () => {
       await axios.post(`${apiUrl}/post`, { name, age });
       setName("");
       setAge("");
-      alert("Data added successfully!");
+      // alert("Data added successfully!");
+      toast.success("Data added successfully!");
     } catch (error) {
       console.error(error);
-      alert("Failed to add data.");
+      // alert("Failed to add data.");
+      toast.error("Failed to delete data.");
     }
   };
 
@@ -140,10 +134,12 @@ const EditData = () => {
   const handleEdit = async () => {
     try {
       await axios.patch(`${apiUrl}/update/${id}`, { name, age });
-      alert("Data updated successfully!");
+      // alert("Data updated successfully!");
+      toast.success("Data updated successfully!");
     } catch (error) {
       console.error(error);
-      alert("Failed to update data.");
+      // alert("Failed to update data.");
+      toast.error("Failed to update data.");
     }
   };
 
